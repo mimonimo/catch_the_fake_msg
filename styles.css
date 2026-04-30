@@ -1,0 +1,809 @@
+:root {
+  --bg-top: #f7f8ff;
+  --bg-bottom: #dfe7ff;
+  --panel: rgba(255, 255, 255, 0.92);
+  --primary: #2480f0;
+  --primary-dark: #0b58be;
+  --danger: #ff6d5e;
+  --text: #141414;
+  --subtle: #667085;
+  --chat-left: #646464;
+  --chat-right: #2b86f3;
+  --line: rgba(20, 20, 20, 0.08);
+  --shadow: 0 22px 55px rgba(74, 91, 135, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family:
+    "Pretendard",
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    "Malgun Gothic",
+    sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.9), transparent 30%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.app-shell {
+  width: min(100%, 760px);
+}
+
+.panel {
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  border-radius: 32px;
+  box-shadow: var(--shadow);
+  padding: 32px 28px 28px;
+}
+
+.panel.hidden {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.mission-tag,
+.quiz-count,
+.score-label {
+  margin: 0;
+  font-family:
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.mission-tag {
+  display: inline-block;
+  background: #eaf2ff;
+  color: var(--primary-dark);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 1rem;
+}
+
+h1,
+h2 {
+  font-family:
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 18px 0 12px;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.3rem);
+}
+
+h2 {
+  font-size: clamp(1.7rem, 3.8vw, 2.5rem);
+}
+
+.intro-copy,
+.score-value {
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.name-form {
+  margin-top: 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.name-form label {
+  font-family:
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.name-form input {
+  border: 2px solid #c7d6f8;
+  border-radius: 18px;
+  padding: 18px 18px;
+  font-size: 1.2rem;
+  font-family: inherit;
+}
+
+.name-form button,
+.next-button,
+.restart-button {
+  border: 0;
+  cursor: pointer;
+  font-family:
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-weight: 800;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.name-form button,
+.next-button,
+.restart-button {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #2b86f3, #165fc8);
+  color: #fff;
+  border-radius: 20px;
+  padding: 18px 20px;
+  font-size: 1.2rem;
+  box-shadow: 0 14px 28px rgba(36, 128, 240, 0.25);
+}
+
+.name-form button:hover,
+.next-button:hover,
+.restart-button:hover,
+.interaction-target:hover {
+  transform: translateY(-1px);
+}
+
+.quiz-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+/* 인트로 패널을 문제 화면과 유사한 카드 레이아웃으로 맞춤 */
+.intro-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.intro-panel h1 {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.intro-panel .name-form {
+  width: min(100%, 560px);
+  background: linear-gradient(180deg, #f5f8ff, #edf3ff);
+  border: 1px solid #d9e5ff;
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 0 10px 20px rgba(44, 90, 160, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.intro-panel .name-form label {
+  align-self: center;
+  text-align: center;
+  width: 100%;
+  font-size: 1.05rem;
+}
+
+.intro-panel .name-form input {
+  width: 100%;
+  text-align: center;
+  /* 플레이스홀더와 커서 위치 정렬: 좌우 패딩을 제거하고 가운데 정렬 유지 */
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  caret-color: var(--text);
+}
+
+.intro-panel .name-form input::placeholder {
+  text-align: center;
+  color: #99a0b8;
+}
+
+/* 일관된 커서와 플레이스홀더 정렬을 위한 고정 높이 및 라인 높이 */
+.intro-panel .name-form input {
+  box-sizing: border-box;
+  height: 56px;
+  line-height: 56px;
+  font-size: 1.15rem;
+}
+
+/* 벤더별 플레이스홀더 정렬 호환성 */
+.intro-panel .name-form input::-webkit-input-placeholder { text-align: center; }
+.intro-panel .name-form input:-moz-placeholder { text-align: center; }
+.intro-panel .name-form input::-moz-placeholder { text-align: center; }
+.intro-panel .name-form input:-ms-input-placeholder { text-align: center; }
+.intro-panel .name-form input::placeholder { text-align: center; }
+
+@media (max-width: 640px) {
+  .intro-panel .name-form input {
+    height: 48px;
+    line-height: 48px;
+    font-size: 1rem;
+  }
+}
+
+.intro-panel .name-form button {
+  width: 100%;
+}
+
+.quiz-prompt {
+  margin-top: 8px;
+  font-size: 1.6rem;
+  line-height: 1.4;
+}
+
+.phone-frame {
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  /* 외곽 프레임을 고정하고 내부(.chat-area)만 스크롤되도록 고정 높이 지정 */
+  height: 68vh;
+  max-height: 760px;
+  min-height: 420px;
+}
+
+.phone-topbar {
+  background: #e9ebf0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.red {
+  background: #ff705e;
+}
+
+.yellow {
+  background: #ffbd3e;
+}
+
+.green {
+  background: #67c654;
+}
+
+.phone-number {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-family:
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.chat-area {
+  /* phone-frame 내부에서만 스크롤되도록 설정 */
+  flex: 1 1 auto;
+  padding: 18px 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.message-block {
+  margin-bottom: 14px;
+}
+
+.message-block.system {
+  display: flex;
+  justify-content: center;
+}
+
+.bubble {
+  max-width: 78%;
+  border-radius: 30px;
+  padding: 18px 20px;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.45;
+  white-space: pre-line;
+  box-shadow: 0 10px 18px rgba(30, 30, 30, 0.08);
+}
+
+.incoming .bubble {
+  background: var(--chat-left);
+  border-top-left-radius: 12px;
+}
+
+.outgoing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.outgoing .bubble {
+  background: var(--chat-right);
+  border-top-right-radius: 12px;
+}
+
+.fake-link {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.fake-link.clicked,
+.fake-link:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.system .bubble {
+  max-width: 92%;
+  background: #fff1f6;
+  color: #b03b73;
+  border: 1px solid #ffc4de;
+  border-radius: 20px;
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(225, 110, 162, 0.14);
+}
+
+.time {
+  margin-top: 4px;
+  color: #b6b6b6;
+  font-size: 0.95rem;
+  padding: 0 4px;
+}
+
+.interaction-box {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.link-choice-box {
+  width: min(100%, 88%);
+  margin-top: 8px;
+  padding-left: 10px;
+}
+
+.link-choice-arrow {
+  color: #7d8fb2;
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.link-choice-list {
+  display: grid;
+  gap: 10px;
+}
+
+.link-choice-button {
+  width: 100%;
+  border: 2px solid #d8e3fb;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 14px 16px;
+  text-align: left;
+  color: #2b456f;
+  font: inherit;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1.45;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(44, 90, 160, 0.08);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.link-choice-button:hover {
+  transform: translateY(-1px);
+}
+
+.link-choice-button.safe {
+  border-color: #bcd5ff;
+}
+
+.link-choice-button.risky {
+  border-color: #ffd4cb;
+}
+
+.link-choice-button:disabled {
+  cursor: default;
+  transform: none;
+  opacity: 0.72;
+}
+
+.interaction-card {
+  width: min(100%, 84%);
+  background: linear-gradient(180deg, #f5f8ff, #edf3ff);
+  border: 1px solid #d9e5ff;
+  border-radius: 24px;
+  padding: 16px 16px 14px;
+  box-shadow: 0 10px 20px rgba(44, 90, 160, 0.08);
+}
+
+.interaction-title {
+  margin: 0 0 8px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #183b72;
+}
+
+.interaction-copy {
+  margin: 0 0 10px;
+  color: #4b628d;
+  line-height: 1.55;
+  font-size: 1.02rem;
+}
+
+.interaction-targets {
+  display: grid;
+  gap: 10px;
+}
+
+.interaction-target {
+  width: 100%;
+  border: 2px solid #c8dafd;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 18px 18px;
+  text-align: left;
+  font: inherit;
+  font-weight: 700;
+  color: #294265;
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
+    opacity 0.22s ease,
+    box-shadow 0.22s ease;
+  box-shadow: 0 8px 18px rgba(44, 90, 160, 0.08);
+  min-height: 88px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.interaction-target.correct {
+  background: linear-gradient(180deg, #eefaf0, #e4f6e7);
+  border-color: #7ed392;
+  color: #236a37;
+  box-shadow: 0 10px 22px rgba(80, 163, 105, 0.16);
+}
+
+.interaction-target.wrong {
+  background: linear-gradient(180deg, #fff5f1, #ffede7);
+  border-color: #ffb0a1;
+  color: #a3483e;
+  box-shadow: 0 10px 22px rgba(214, 106, 83, 0.14);
+}
+
+.interaction-target:disabled {
+  cursor: default;
+  transform: none;
+  opacity: 0.7;
+}
+
+.interaction-status {
+  min-height: 54px;
+  margin-top: 10px;
+  padding: 14px 16px;
+  font-weight: 700;
+  color: #214d91;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid #d9e5ff;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+}
+
+.interaction-status.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.credential-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d9e5ff;
+}
+
+.credential-form label {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #32507f;
+}
+
+.credential-form input {
+  width: 100%;
+  border: 2px solid #c8dafd;
+  border-radius: 14px;
+  padding: 14px 12px;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.credential-form input.prefilled {
+  background: #f7f9ff;
+  color: #5a6d8f;
+}
+
+.credential-form button {
+  border: 0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #2b86f3, #165fc8);
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.next-button,
+.restart-button {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.score-card {
+  margin: 16px 0 22px;
+  background: linear-gradient(135deg, #eef5ff, #dceaff);
+  border-radius: 22px;
+  padding: 18px;
+  text-align: center;
+}
+
+.score-value {
+  margin: 8px 0 0;
+  font-family:
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--primary-dark);
+}
+
+.result-summary,
+.lesson-heading {
+  font-weight: 700;
+}
+
+.result-summary {
+  margin: 0 0 14px;
+  line-height: 1.6;
+  color: #35517f;
+  font-size: 1.05rem;
+}
+
+.lesson-heading {
+  margin: 0 0 8px;
+  color: #183b72;
+}
+
+.safety-list {
+  margin: 0 0 18px;
+  padding-left: 24px;
+  line-height: 1.9;
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+/* 결과 패널(마지막 페이지) 교훈 영역 가독성 향상 */
+.final-lessons {
+  max-width: 760px;
+  margin: 12px auto 8px;
+  padding: 18px 20px;
+  text-align: left;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+  border-radius: 18px;
+}
+
+.final-lessons .lesson-heading {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #183b72;
+  margin: 6px 0 10px;
+}
+
+.final-lessons .lesson-copy {
+  display: block;
+  font-size: 1.06rem;
+  line-height: 1.9;
+  color: #15263f;
+  font-weight: 800;
+  margin: 10px 0;
+  padding: 6px 8px;
+}
+
+/* 모바일에서 글자 크기/간격 조정 */
+@media (max-width: 640px) {
+  .final-lessons { padding: 14px 12px; }
+  .final-lessons .lesson-heading { font-size: 1.05rem; }
+  .final-lessons .lesson-copy { font-size: 1rem; line-height: 1.7; }
+}
+
+/* final-pledges 번호 및 강조 스타일 */
+.final-pledges {
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0 0;
+}
+
+.final-pledges li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 12px 0;
+}
+
+.pledge-number {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+  width: 48px;
+  text-align: left;
+}
+
+.pledge-content strong {
+  display: block;
+  font-size: 1.08rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.pledge-content p {
+  margin: 0;
+  font-size: 1.02rem;
+  color: #15263f;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* 문제별 즉시 표시되는 결과 박스 — lesson(인터랙션 카드) 스타일에 맞춤 */
+.result-box {
+  width: min(100%, 84%);
+  margin: 12px auto;
+  padding: 16px 16px 14px;
+  border-radius: 24px;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(44, 90, 160, 0.08);
+}
+
+.result-box.correct {
+  /* 연두색(정답) — 기존 interaction-target.correct 톤과 유사 */
+  background: linear-gradient(180deg, #eefaf0, #e4f6e7);
+  border: 1px solid #7ed392;
+  color: #236a37;
+}
+
+.result-box.wrong {
+  /* 핑크 톤(오답) — 기존 interaction-target.wrong과 유사한 톤 */
+  background: linear-gradient(180deg, #fff5f1, #ffede7);
+  border: 1px solid #ffb0a1;
+  color: #a3483e;
+}
+
+@media (max-width: 820px) {
+  .app-shell {
+    width: min(100%, 680px);
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 12px;
+  }
+
+  .panel {
+    padding: 22px 16px 18px;
+    border-radius: 24px;
+  }
+
+  .chat-area {
+    min-height: 410px;
+    padding: 16px 12px 12px;
+  }
+
+  .bubble {
+    max-width: 86%;
+    padding: 15px 16px;
+    font-size: 1rem;
+  }
+
+  .interaction-target {
+    min-height: 72px;
+    font-size: 1rem;
+    padding: 14px 15px;
+  }
+
+  .interaction-card {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .link-choice-box {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .name-form input,
+  .name-form button,
+  .next-button,
+  .restart-button {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    padding: 12px;
+  }
+
+  .panel {
+    padding: 20px 14px 18px;
+    border-radius: 24px;
+  }
+
+  .phone-number {
+    font-size: 1.2rem;
+  }
+
+  .chat-area {
+    min-height: 390px;
+    padding: 14px 10px 12px;
+  }
+
+  .bubble {
+    max-width: 85%;
+    font-size: 0.95rem;
+  }
+}

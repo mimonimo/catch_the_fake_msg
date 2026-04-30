@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문자메시지 속 거짓말 찾기</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel intro-panel active" id="introPanel">
+        <p class="mission-tag">비밀번호 획득 3번째 미션</p>
+        <h1>문자메시지 속<br />거짓말 메시지 찾기!</h1>
+
+        <form class="name-form" id="nameForm">
+          <label for="playerName">이름</label>
+          <input
+            id="playerName"
+            name="playerName"
+            type="text"
+            maxlength="10"
+            placeholder="예) 김코스"
+            autocomplete="off"
+            required
+          />
+          <button type="submit">시작하기</button>
+        </form>
+      </section>
+
+      <section class="panel hidden" id="gamePanel">
+        <header class="quiz-header">
+          <p class="quiz-count" id="quizCount">문제 1</p>
+          <h2 class="quiz-prompt">어떤 답장을 보내면 좋을지 골라 보세요</h2>
+        </header>
+
+        <article class="phone-frame">
+          <div class="phone-topbar">
+            <div class="dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <p class="phone-number" id="phoneNumber"></p>
+          </div>
+
+          <div class="chat-area" id="chatArea"></div>
+        </article>
+
+        <button class="next-button hidden" id="nextButton">다음 문제로 가기!</button>
+      </section>
+
+      <section class="panel hidden" id="resultPanel">
+        <p class="mission-tag">미션 완료</p>
+        <h2><span id="resultName"></span>의 보안 약속</h2>
+        <div class="score-card">
+          <p class="score-label">맞은 개수</p>
+          <p class="score-value"><span id="scoreValue">0</span> / 3</p>
+        </div>
+
+        <p class="result-summary" id="resultSummary"></p>
+
+        <div class="final-lessons">
+          <p class="lesson-heading">🛡️ 우리를 안전하게 지키는 3가지 약속!</p>
+
+          <ol class="final-pledges">
+            <li>
+              <div class="pledge-number">1.</div>
+              <div class="pledge-content">
+                <strong>모르는 링크는 꾹 참아요!</strong>
+                <p>🎁 "공짜 선물! 게임 아이템!" 이렇게 기분 좋은 문자가 와도, 모르는 링크는 절대 누르지 않기로 약속해요.</p>
+              </div>
+            </li>
+
+            <li>
+              <div class="pledge-number">2.</div>
+              <div class="pledge-content">
+                <strong>내 정보는 함부로 주지 않아요!</strong>
+                <p>🤫 아는 어른처럼 친절하게 다가와도, 내 이름이나 전화번호, 사진 같은 소중한 정보는 절대 보내면 안 돼요.</p>
+              </div>
+            </li>
+
+            <li>
+              <div class="pledge-number">3.</div>
+              <div class="pledge-content">
+                <strong>이상한 연락은 부모님께 먼저 물어봐요!</strong>
+                <p>🚨 돈을 준다거나 빨리 하라고 재촉하는 문자를 받으면? 혼자 고민하지 말고 꼭 부모님께 먼저 보여드리고 확인해요!</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <button class="restart-button" id="restartButton">처음으로 돌아가기</button>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
