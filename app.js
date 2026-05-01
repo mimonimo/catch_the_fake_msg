@@ -26,7 +26,7 @@ const fallbackTimeLabel = "9:45 AM";
 const scenarioTemplates = [
   {
     title: "문제 1",
-    number: "070-XXXX-9876",
+    number: "070-2468-9876",
     setup: [
       { side: "incoming", text: "이 링크 누르면\n게임 아이템 줄게!", timeOffset: 0 },
       { side: "incoming", text: "http://rpdla/fh.com", timeOffset: 0 },
@@ -63,7 +63,7 @@ const scenarioTemplates = [
   },
   {
     title: "문제 2",
-    number: "010-XXXX-1234",
+    number: "010-9876-1234",
     setup: [
       { side: "incoming", text: "안녕 {nameSubject} 맞니?", timeOffset: 0 },
       { side: "outgoing", text: "네! 누구세요?", timeOffset: 1 },
@@ -98,7 +98,7 @@ const scenarioTemplates = [
   },
   {
     title: "문제 3",
-    number: "053-XXXX-1234",
+    number: "053-5678-1234",
     setup: [
       {
         side: "incoming",
@@ -478,7 +478,8 @@ function renderScenario() {
 }
 
 function showResult() {
-  resultName.textContent = playerName;
+  // 결과 패널에서는 이름에 조사 규칙을 적용하여 표시
+  resultName.textContent = getNameWithSubjectParticle(playerName);
   scoreValue.textContent = score;
   resultSummary.textContent =
     score === scenarioTemplates.length
