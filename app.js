@@ -32,8 +32,6 @@ const scenarioTemplates = [
       { side: "incoming", text: "http://rpdla/fh.com", timeOffset: 0 },
     ],
     interaction: {
-      title: "",
-      copy: "",
       options: [
         {
           label: "모르는 링크는 누르면 안 돼!",
@@ -73,7 +71,7 @@ const scenarioTemplates = [
     ],
     interaction: {
       title: "보내고 싶은 답장",
-      copy: "하나를 선택해 주세요.",
+      copy: "하나를 골라 보세요",
       options: [
         {
           label: "엄마한테 먼저 물어볼게요!",
@@ -109,8 +107,7 @@ const scenarioTemplates = [
       },
     ],
     interaction: {
-      title: "내 생각",
-      copy: "링크를 누르면 신청해도 될까?",
+      copy: "하나를 골라 보세요",
       options: [
         {
           label: "링크를 눌러서\n신청해 볼래요!",
@@ -125,7 +122,8 @@ const scenarioTemplates = [
           },
           preAppendedFirstMessage: false,
           followUp: [
-            { side: "incoming", text: "{passwordValue} {nameSubject}님 광고 수신 동의 되었습니다.", timeOffset: 2 },
+            // 이름 뒤에 조사 없이 '님'만 붙이도록 {name} 사용
+            { side: "incoming", text: "{passwordValue} {name}님 광고 수신 동의 되었습니다.", timeOffset: 2 },
             { side: "outgoing", text: "난 이런거 동의 한 적 없는데?", timeOffset: 3 },
           ],
         },
@@ -260,10 +258,7 @@ function appendFirstProblemChoices(scenario) {
   safeButton.className = "link-choice-button safe";
   safeButton.textContent = "2. 모르는 링크는 누르지 않는다";
 
-  const disableChoiceButtons = () => {
-    clickButton.disabled = true;
-    safeButton.disabled = true;
-  };
+  // 선택 버튼 비활성화 로직은 클릭 후 개별 처리하므로 중복 정의 제거
 
   clickButton.addEventListener("click", () => {
     if (answered) {
@@ -304,7 +299,8 @@ function appendInlineChoices(scenario) {
 
   const arrow = document.createElement("div");
   arrow.className = "link-choice-arrow";
-  arrow.textContent = `↳ ${scenario.interaction.copy}`;
+  const copyText = scenario.interaction && scenario.interaction.copy ? scenario.interaction.copy : "하나를 선택해 주세요.";
+  arrow.textContent = `↳ ${copyText}`;
 
   const list = document.createElement("div");
   list.className = "link-choice-list";
