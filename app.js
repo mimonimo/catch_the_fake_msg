@@ -160,15 +160,24 @@ function fillOptionTemplate(text, values = {}) {
 }
 
 function getNameWithSubjectParticle(name) {
-  const safeName = name || "OO";
-  const lastChar = safeName.charAt(safeName.length - 1);
+  const safeName = (name || "OO").trim();
+  if (!safeName) return "OO";
+
+  // 이미 조사 '이' 또는 '가'로 끝나면 중복 붙이지 않음
+  const lastCharRaw = safeName.charAt(safeName.length - 1);
+  if (lastCharRaw === "이" || lastCharRaw === "가") return safeName;
+
+  const lastChar = lastCharRaw;
   const code = lastChar.charCodeAt(0);
 
+  // 한글 음절 범위를 벗어나면 기본적으로 '이'를 붙임
   if (code < 0xac00 || code > 0xd7a3) {
-    return `${safeName}이`;
+    // 한글이 아니면 조사 붙이지 않음
+    return safeName;
   }
 
   const hasBatchim = (code - 0xac00) % 28 !== 0;
+  // 받침이 있으면 '이'를 붙이고, 없으면 조사 없이 이름만 반환
   return hasBatchim ? `${safeName}이` : safeName;
 }
 
