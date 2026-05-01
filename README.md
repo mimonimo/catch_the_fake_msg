@@ -29,9 +29,8 @@
 - **JavaScript**: 퀴즈 정답 확인 및 인터랙션 기능
 
 ## 🚀 실행 방법
-1. 이 저장소를 `clone` 하거나 파일을 다운로드합니다.
-2. 폴더 내의 `index.html` 파일을 더블 클릭합니다.
-3. 웹 브라우저(Chrome, Edge 등)에서 바로 게임을 시작할 수 있습니다!
+1. 아래의 링크를 웹 브라우저(Chrome, Edge 등)에서 접속하면 바로 게임을 시작할 수 있습니다!
+https://mimonimo.github.io/catch_the_fake_msg/
 
 ---
 
